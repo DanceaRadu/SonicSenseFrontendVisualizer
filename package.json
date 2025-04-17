@@ -25,6 +25,7 @@
     "tailwindcss": "^4.1.4",
     "tslib": "^2.3.0",
     "video.js": "^8.22.0",
+    "websocket": "^1.0.35",
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
