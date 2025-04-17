@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-camera-stream',
@@ -36,12 +36,11 @@ export class CameraStreamComponent implements AfterViewInit {
 
     this.peerConnection.oniceconnectionstatechange = () => {
       console.log("ICE Connection State Changed:", this.peerConnection.iceConnectionState);
-      console.log(this.peerConnection)
     };
 
     this.peerConnection.onicecandidate = (event) => {
       if (event.candidate) {
-        console.log('ICE candidate event:', event);
+        console.log('Found ICE candidate. Sending to camera:', event);
         this.signalingSocket.send(JSON.stringify({
           type: 'candidate',
           candidate: {
@@ -81,7 +80,7 @@ export class CameraStreamComponent implements AfterViewInit {
         }));
       } else if (data.type === 'candidate') {
         try {
-          console.log('Received ICE candidate:', data);
+          console.log('Received ICE candidate from camera:', data);
           await this.peerConnection.addIceCandidate(data.candidate);
         } catch (err) {
           console.error('Error adding received ice candidate', err);
