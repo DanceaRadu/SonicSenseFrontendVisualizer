@@ -13,7 +13,13 @@ export class CameraStreamComponent implements AfterViewInit {
   signalingSocket!: WebSocket;
 
   readonly SIGNALING_SERVER_URL = 'wss://sonic-sense-signaling.gonemesis.org';
-  readonly STUN_SERVERS = [{ urls: 'stun:stun.l.google.com:5349' }];
+  readonly STUN_SERVERS = [
+    { urls: 'stun:stun.l.google.com:19302' },
+    { urls: 'stun:stun1.l.google.com:19302' },
+    { urls: 'stun:stun2.l.google.com:19302' },
+    { urls: 'stun:stun3.l.google.com:19302' },
+    { urls: 'stun:stun4.l.google.com:19302' },
+  ];
 
   ngAfterViewInit() {
     this.initWebRTC();
@@ -75,6 +81,7 @@ export class CameraStreamComponent implements AfterViewInit {
         }));
       } else if (data.type === 'candidate') {
         try {
+          console.log('Received ICE candidate:', data);
           await this.peerConnection.addIceCandidate(data.candidate);
         } catch (err) {
           console.error('Error adding received ice candidate', err);
