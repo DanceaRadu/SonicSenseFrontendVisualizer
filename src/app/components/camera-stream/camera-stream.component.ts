@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-camera-stream',
@@ -12,7 +13,7 @@ export class CameraStreamComponent implements AfterViewInit {
   peerConnection!: RTCPeerConnection;
   signalingSocket!: WebSocket;
 
-  readonly SIGNALING_SERVER_URL = 'wss://sonic-sense-signaling.gonemesis.org';
+  readonly SIGNALING_SERVER_URL = environment.signalingServerURL;
   readonly STUN_SERVERS = [
     { urls: 'stun:stun.l.google.com:19302' },
     { urls: 'stun:stun1.l.google.com:19302' },
@@ -26,10 +27,54 @@ export class CameraStreamComponent implements AfterViewInit {
   }
 
   initWebRTC() {
-    this.peerConnection = new RTCPeerConnection({ iceServers: this.STUN_SERVERS });
+    this.signalingSocket = new WebSocket(this.SIGNALING_SERVER_URL);
 
+    this.signalingSocket.onmessage = async (messageEvent) => {
+      const data = JSON.parse(messageEvent.data);
+
+      if (data.type === 'offer') {
+        console.log('Received new offer. Resetting connection');
+
+        if (this.peerConnection) {
+          this.peerConnection.close();
+        }
+        this.peerConnection = new RTCPeerConnection({ iceServers: this.STUN_SERVERS });
+        this.setupPeerConnectionHandlers();
+
+        await this.peerConnection.setRemoteDescription(new RTCSessionDescription(data));
+
+        const answer = await this.peerConnection.createAnswer();
+        await this.peerConnection.setLocalDescription(answer);
+
+        this.signalingSocket.send(JSON.stringify({
+          type: 'answer',
+          sdp: answer.sdp,
+          sdpType: answer.type
+        }));
+      } else if (this.peerConnection && data.type === 'candidate') {
+        try {
+          console.log('Received ICE candidate from camera.');
+          await this.peerConnection.addIceCandidate(data.candidate);
+        } catch (err) {
+          console.error('Error adding received ice candidate', err);
+        }
+      }
+    };
+
+    this.signalingSocket.onopen = () => {
+      console.log('✅ Connected to signaling server');
+      this.signalingSocket.send(JSON.stringify({
+        type: "request-offer"
+      }));
+    };
+
+    this.signalingSocket.onerror = (err) => {
+      console.error('❌ Signaling WebSocket error:', err);
+    };
+  }
+
+  setupPeerConnectionHandlers() {
     this.peerConnection.ontrack = (event) => {
-      console.log('Received remote track:', event);
       const [stream] = event.streams;
       this.remoteVideoRef.nativeElement.srcObject = stream;
     };
@@ -40,11 +85,11 @@ export class CameraStreamComponent implements AfterViewInit {
 
     this.peerConnection.onicecandidate = (event) => {
       if (event.candidate) {
-        console.log('Found ICE candidate. Sending to camera:', event);
+        console.log('Found ICE candidate. Sending to camera.');
         this.signalingSocket.send(JSON.stringify({
           type: 'candidate',
           candidate: {
-            "component" : event.candidate.component,
+            "component": event.candidate.component,
             "foundation": event.candidate.foundation,
             "ip": event.candidate.address,
             "port": event.candidate.port,
@@ -57,43 +102,8 @@ export class CameraStreamComponent implements AfterViewInit {
             "sdpMLineIndex": event.candidate.sdpMLineIndex,
             "tcpType": event.candidate.tcpType,
           }
-        }))
-      }
-    };
-
-    this.signalingSocket = new WebSocket(this.SIGNALING_SERVER_URL);
-
-    this.signalingSocket.onmessage = async (messageEvent) => {
-      const data = JSON.parse(messageEvent.data);
-
-      if (data.type === 'offer') {
-        console.log('Received offer:', data);
-        await this.peerConnection.setRemoteDescription(new RTCSessionDescription(data));
-
-        const answer = await this.peerConnection.createAnswer();
-        await this.peerConnection.setLocalDescription(answer);
-
-        this.signalingSocket.send(JSON.stringify({
-          type: 'answer',
-          sdp: answer.sdp,
-          sdpType: answer.type
         }));
-      } else if (data.type === 'candidate') {
-        try {
-          console.log('Received ICE candidate from camera:', data);
-          await this.peerConnection.addIceCandidate(data.candidate);
-        } catch (err) {
-          console.error('Error adding received ice candidate', err);
-        }
       }
-    };
-
-    this.signalingSocket.onopen = () => {
-      console.log('✅ Connected to signaling server');
-    };
-
-    this.signalingSocket.onerror = (err) => {
-      console.error('❌ Signaling WebSocket error:', err);
     };
   }
 }
