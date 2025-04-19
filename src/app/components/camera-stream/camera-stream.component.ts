@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { environment } from '../../../environments/environment';
+import { SnackBarService } from '../../services/snack-bar.service';
 
 @Component({
   selector: 'app-camera-stream',
@@ -12,6 +13,7 @@ export class CameraStreamComponent implements AfterViewInit {
   @ViewChild('remoteVideo') remoteVideoRef!: ElementRef<HTMLVideoElement>;
   peerConnection!: RTCPeerConnection;
   signalingSocket!: WebSocket;
+  showPlayButton = true;
 
   readonly SIGNALING_SERVER_URL = environment.signalingServerURL;
   readonly STUN_SERVERS = [
@@ -21,6 +23,9 @@ export class CameraStreamComponent implements AfterViewInit {
     { urls: 'stun:stun3.l.google.com:19302' },
     { urls: 'stun:stun4.l.google.com:19302' },
   ];
+
+  constructor(private snackBarService: SnackBarService) {
+  }
 
   ngAfterViewInit() {
     this.initWebRTC();
@@ -105,5 +110,13 @@ export class CameraStreamComponent implements AfterViewInit {
         }));
       }
     };
+  }
+
+  handleStartStream() {
+    this.remoteVideoRef.nativeElement.play().then(() => {
+      this.showPlayButton = false;
+    }).catch(() => {
+      this.snackBarService.showError('Something went wrong...');
+    })
   }
 }

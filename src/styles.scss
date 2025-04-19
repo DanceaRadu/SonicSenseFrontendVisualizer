@@ -1,4 +1,25 @@
 @use "tailwindcss";
 
-html, body { height: 100%; }
+:root {
+  --background-color: var(--mat-sys-surface);
+  --accent-color: var(--mat-sys-primary);
+  --accent-surface-color: var(--mat-sys-on-primary);
+  --separator-color: var(--mat-sys-outline-variant);
+  --darker-background-color: #131414;
+
+  --font-fredoka: "Fredoka", sans-serif;
+
+  --text-sm: 1.1rem;
+  --text-md: 1.5rem;
+  --text-lg: 2rem;
+}
+
+.mat-mdc-snack-bar-container.snackbar-error {
+  --mat-snack-bar-button-color: #fff;
+  --mdc-snackbar-container-color: var(--accent-surface-color);
+  --mdc-snackbar-supporting-text-color: #fff;
+}
+
+
+html, body { height: 100%; background-color: var(--background-color) }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

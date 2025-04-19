@@ -1,0 +1,13 @@
+@use '@angular/material' as mat;
+@include mat.core();
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background-color: var(--accent-surface-color);
+  color: var(--accent-color);
+  font-family: var(--font-fredoka), serif;
+  font-size: var(--text-md);
+}

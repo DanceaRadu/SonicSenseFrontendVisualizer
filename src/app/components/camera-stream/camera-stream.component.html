@@ -1,3 +1,17 @@
-<div>Sonic Sense</div>
-<video #remoteVideo controls autoplay playsinline></video>
+<div class="flex justify-center relative m-2">
+  <div class="rounded-md stream-video-container">
+    <video width="960" height="540" #remoteVideo playsinline controls></video>
+
+    <button
+      mat-icon-button
+      color="primary"
+      *ngIf="showPlayButton"
+      (click)="handleStartStream()"
+      class="play-button">
+      <mat-icon>play_arrow</mat-icon>
+    </button>
+
+  </div>
+</div>
+
 
