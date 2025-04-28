@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { WebsocketService } from '../../services/websocket.service';
 
 @Component({
   selector: 'app-sound-events',
@@ -7,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './sound-events.component.scss'
 })
 export class SoundEventsComponent {
-
+  constructor(private websocketService: WebsocketService) {}
 }
