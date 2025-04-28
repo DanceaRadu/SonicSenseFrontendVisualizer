@@ -19,9 +19,9 @@ export class WebsocketService {
   connect(): void {
     this.socket = new SockJS(environment.baseURL + '/ws');
     this.stompClient = Stomp.over(this.socket);
+    this.stompClient.debug = () => {};
 
-    this.stompClient.connect({}, (frame: any) => {
-      console.log('Connected: ' + frame);
+    this.stompClient.connect({}, () => {
       this.stompClient!.subscribe('/topic/sound-events', (message: any) => {
         this.onMessageReceived(message);
       });

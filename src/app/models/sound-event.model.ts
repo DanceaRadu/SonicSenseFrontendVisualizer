@@ -1,5 +1,5 @@
 export interface SoundEvent {
-  id: number;
+  id: string;
   videoId: string;
   time: Date;
   soundType: string;

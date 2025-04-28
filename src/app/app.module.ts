@@ -8,6 +8,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { SoundEventsComponent } from './components/sound-events/sound-events.component';
+import { provideHttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -21,9 +22,11 @@ import { SoundEventsComponent } from './components/sound-events/sound-events.com
     AppRoutingModule,
     MatIconButton,
     MatIcon,
-    MatButton
+    MatButton,
   ],
-  providers: [],
+  providers: [
+    provideHttpClient()
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
