@@ -15,6 +15,7 @@ import { MatDialogActions, MatDialogContent, MatDialogTitle } from '@angular/mat
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { VideoModalComponent } from './components/video-modal/video-modal.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SoundEventsComponent,
     SoundEventComponent,
     ConfirmationDialogComponent,
-    VideoModalComponent
+    VideoModalComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

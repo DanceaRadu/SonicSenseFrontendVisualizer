@@ -16,6 +16,13 @@
   --text-xlarge: 24px;
 }
 
+.separator {
+  display: flex;
+  height: 1px;
+  width: 100%;
+  background-color: var(--separator-color);
+}
+
 .small-text {
   font-size: var(--text-small)
 }
