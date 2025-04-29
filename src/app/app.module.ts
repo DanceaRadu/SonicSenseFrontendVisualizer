@@ -12,6 +12,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { SoundEventComponent } from './components/sound-events/sound-event/sound-event.component';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { MatDialogActions, MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { MatDialogActions, MatDialogContent, MatDialogTitle } from '@angular/mat
     MatDialogContent,
     MatDialogTitle,
     MatDialogActions,
+    MatProgressSpinner,
   ],
   providers: [
     provideHttpClient()

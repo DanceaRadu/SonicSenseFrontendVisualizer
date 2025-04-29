@@ -1,5 +1,14 @@
 <div class="events-list">
   <div class="events-title">Event log</div>
+
+  <div *ngIf="isLoading" class="loading-spinner">
+    <mat-spinner [diameter]="40" class="mb-4"></mat-spinner>
+  </div>
+
+  <div *ngIf="!isLoading && soundEvents.length === 0" class="no-events-message">
+    No events found.
+  </div>
+
   <app-sound-event
     class="sound-event"
     *ngFor="let event of soundEvents"

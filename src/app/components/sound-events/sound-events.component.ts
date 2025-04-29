@@ -16,6 +16,7 @@ import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation
 export class SoundEventsComponent implements OnInit {
 
   soundEvents: SoundEvent[] = []
+  isLoading: boolean = true;
 
   constructor(
     private websocketService: WebsocketService,
@@ -30,10 +31,12 @@ export class SoundEventsComponent implements OnInit {
         this.soundEvents = events.sort((a, b) => {
           return new Date(b.time).getTime() - new Date(a.time).getTime();
         });
+        this.isLoading = false;
       },
       error: () => {
         this.snackBar.showError("Failed to load sound events");
-      }
+        this.isLoading = false;
+      },
     });
 
     this.websocketService.getMessages().subscribe((message: WebsocketEvent) => {
