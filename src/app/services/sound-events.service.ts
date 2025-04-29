@@ -20,4 +20,8 @@ export class SoundEventsService {
   deleteSoundEventById(id: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+
+  getSoundEventVideo(videoId: string): Observable<Blob> {
+    return this.http.get<Blob>(`${this.apiUrl}/video/${videoId}`, { responseType: 'blob' as 'json' });
+  }
 }

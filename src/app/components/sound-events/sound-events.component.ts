@@ -18,6 +18,9 @@ export class SoundEventsComponent implements OnInit {
   soundEvents: SoundEvent[] = []
   isLoading: boolean = true;
 
+  videoUrl: string | null = null;
+  selectedEvent: SoundEvent | null = null;
+
   constructor(
     private websocketService: WebsocketService,
     private soundEventsService: SoundEventsService,
@@ -72,5 +75,17 @@ export class SoundEventsComponent implements OnInit {
         this.soundEvents = this.soundEvents.filter(event => event.id !== id);
       }
     });
+  }
+
+  handlePlayVideo(videoId: string) {
+    this.soundEventsService.getSoundEventVideo(videoId).subscribe((video) => {
+      this.selectedEvent = this.soundEvents.find(event => event.videoId === videoId) || null;
+      this.videoUrl = URL.createObjectURL(video);
+    })
+  }
+
+  closeModal(): void {
+    this.videoUrl = null;
+    this.selectedEvent = null;
   }
 }

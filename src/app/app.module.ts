@@ -13,6 +13,7 @@ import { SoundEventComponent } from './components/sound-events/sound-event/sound
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { MatDialogActions, MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
+import { VideoModalComponent } from './components/video-modal/video-modal.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
     HeaderComponent,
     SoundEventsComponent,
     SoundEventComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    VideoModalComponent
   ],
   imports: [
     BrowserModule,
