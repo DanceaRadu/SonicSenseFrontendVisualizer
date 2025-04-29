@@ -15,11 +15,16 @@
   background: var(--background-color);
   border-radius: 8px;
   position: relative;
+
+  .event-name {
+    font-size: var(--text-medium);
+    color: var(--text-color)
+  }
 }
 
 .close-btn {
   font-weight: bold;
-  font-size: 0.75rem;
+  font-size: var(--text-medium);
   color: white;
   border: none;
   cursor: pointer;
@@ -30,8 +35,4 @@ video {
   max-width: 100%;
   padding: 0 0.5rem 0.5rem 0.5rem;
   height: auto;
-}
-
-.event-name {
-  font-size: var(--text-sm);
 }

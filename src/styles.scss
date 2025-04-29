@@ -10,10 +10,28 @@
   --font-fredoka: "Fredoka", sans-serif;
   --text-color: #ddd;
 
-  --text-sm: 1rem;
-  --text-md: 1.5rem;
-  --text-lg: 2rem;
+  --text-small: 14px;
+  --text-medium: 16px;
+  --text-large: 20px;
+  --text-xlarge: 24px;
 }
+
+.small-text {
+  font-size: var(--text-small)
+}
+
+.medium-text {
+  font-size: var(--text-medium)
+}
+
+.large-text {
+  font-size: var(--text-large)
+}
+
+.xlarge-text {
+  font-size: var(--text-xlarge)
+}
+
 
 .mat-mdc-snack-bar-container.snackbar-error {
   --mat-snack-bar-button-color: #fff;
@@ -30,25 +48,8 @@
 html, body {
   height: 100%;
   background-color: var(--background-color);
-  font-size: 12px;
+  color: var(--text-color);
+  font-size: 16px;
 }
 
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-@media (min-width: 768px) {
-  html {
-    font-size: 14px;
-  }
-}
-
-@media (min-width: 1024px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-@media (min-width: 1440px) {
-  html {
-    font-size: 18px;
-  }
-}
