@@ -25,14 +25,19 @@
 .close-btn {
   font-weight: bold;
   font-size: var(--text-medium);
-  color: white;
+  color: var(--text-color);
   border: none;
   cursor: pointer;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #999;
+  }
 }
 
 video {
   display: block;
   max-width: 100%;
-  padding: 0 0.5rem 0.5rem 0.5rem;
+  padding: 0 1rem 1rem 1rem;
   height: auto;
 }
