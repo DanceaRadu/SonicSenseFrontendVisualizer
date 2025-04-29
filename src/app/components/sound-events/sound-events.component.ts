@@ -4,6 +4,8 @@ import { SoundEventsService } from '../../services/sound-events.service';
 import { SoundEvent } from '../../models/sound-event.model';
 import { SnackBarService } from '../../services/snack-bar.service';
 import { WebsocketEvent } from '../../models/websocket-event.model';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-sound-events',
@@ -18,7 +20,8 @@ export class SoundEventsComponent implements OnInit {
   constructor(
     private websocketService: WebsocketService,
     private soundEventsService: SoundEventsService,
-    private snackBar: SnackBarService
+    private snackBar: SnackBarService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -47,14 +50,24 @@ export class SoundEventsComponent implements OnInit {
   }
 
   handleEventDelete(id: string) {
-    this.soundEventsService.deleteSoundEventById(id).subscribe({
-      next: () => {
-        this.snackBar.showSuccess("Event deleted successfully");
-      },
-      error: () => {
-        this.snackBar.showError("Failed to delete event");
+
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      data: { message: 'Are you sure you want to delete this event?' }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'confirm') {
+        this.soundEventsService.deleteSoundEventById(id).subscribe({
+          next: () => {
+            this.snackBar.showSuccess("Event deleted successfully");
+          },
+          error: () => {
+            this.snackBar.showError("Failed to delete event");
+          }
+        });
+        this.soundEvents = this.soundEvents.filter(event => event.id !== id);
       }
     });
-    this.soundEvents = this.soundEvents.filter(event => event.id !== id);
   }
 }

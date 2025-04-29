@@ -10,6 +10,8 @@ import { MatIcon } from '@angular/material/icon';
 import { SoundEventsComponent } from './components/sound-events/sound-events.component';
 import { provideHttpClient } from '@angular/common/http';
 import { SoundEventComponent } from './components/sound-events/sound-event/sound-event.component';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
+import { MatDialogActions, MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,8 @@ import { SoundEventComponent } from './components/sound-events/sound-event/sound
     CameraStreamComponent,
     HeaderComponent,
     SoundEventsComponent,
-    SoundEventComponent
+    SoundEventComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -25,6 +28,9 @@ import { SoundEventComponent } from './components/sound-events/sound-event/sound
     MatIconButton,
     MatIcon,
     MatButton,
+    MatDialogContent,
+    MatDialogTitle,
+    MatDialogActions,
   ],
   providers: [
     provideHttpClient()
