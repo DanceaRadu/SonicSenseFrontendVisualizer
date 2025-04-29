@@ -20,6 +20,7 @@ export class SoundEventsComponent implements OnInit {
 
   videoUrl: string | null = null;
   selectedEvent: SoundEvent | null = null;
+  isLoadingVideo: boolean = false;
 
   constructor(
     private websocketService: WebsocketService,
@@ -78,9 +79,17 @@ export class SoundEventsComponent implements OnInit {
   }
 
   handlePlayVideo(videoId: string) {
-    this.soundEventsService.getSoundEventVideo(videoId).subscribe((video) => {
-      this.selectedEvent = this.soundEvents.find(event => event.videoId === videoId) || null;
-      this.videoUrl = URL.createObjectURL(video);
+    this.isLoadingVideo = true;
+    this.soundEventsService.getSoundEventVideo(videoId).subscribe( {
+      next: (video: Blob) => {
+        this.selectedEvent = this.soundEvents.find(event => event.videoId === videoId) || null;
+        this.videoUrl = URL.createObjectURL(video);
+        this.isLoadingVideo = false;
+      },
+      error: () => {
+        this.snackBar.showError("Failed to load video");
+        this.isLoadingVideo = false;
+      },
     })
   }
 
