@@ -14,6 +14,7 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
 import { MatDialogActions, MatDialogContent, MatDialogTitle } from '@angular/material/dialog';
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { VideoModalComponent } from './components/video-modal/video-modal.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { VideoModalComponent } from './components/video-modal/video-modal.compon
     MatDialogTitle,
     MatDialogActions,
     MatProgressSpinner,
+    BrowserAnimationsModule,
   ],
   providers: [
     provideHttpClient()

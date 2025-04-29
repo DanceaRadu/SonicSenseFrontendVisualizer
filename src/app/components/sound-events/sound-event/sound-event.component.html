@@ -22,9 +22,14 @@
 
 </div>
 
-<app-video-modal
+<div
   *ngIf="videoUrl"
-  [videoUrl]="videoUrl"
-  [event]="soundEvent"
-  (close)="closeModal()">
-</app-video-modal>
+  class="video-modal-backdrop">
+  <div @modalAnimation>
+    <app-video-modal
+      [videoUrl]="videoUrl"
+      [event]="soundEvent"
+      (close)="closeModal()">
+    </app-video-modal>
+  </div>
+</div>
