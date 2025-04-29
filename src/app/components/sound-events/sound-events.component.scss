@@ -1,0 +1,23 @@
+.events-title {
+  font-size: var(--text-md);
+  color: var(--text-color);
+  margin-bottom: 1rem;
+}
+
+.events-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+
+  .sound-event {
+    width: 100%;
+
+    @media (min-width: 960px) {
+      width: 960px;
+    }
+  }
+}

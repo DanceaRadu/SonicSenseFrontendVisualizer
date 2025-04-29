@@ -1,0 +1,17 @@
+.event-outer-container {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  background-color: var(--accent-surface-color);
+  color: var(--text-color);
+  padding: 0.25rem 0.8rem 0.25rem 0.8rem;
+  margin-bottom: 0.7rem;
+
+  border: 1px solid var(--separator-color);
+  border-radius: 0.4rem;
+
+  width: 100%;
+}

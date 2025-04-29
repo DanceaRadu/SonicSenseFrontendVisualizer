@@ -9,13 +9,15 @@ import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { SoundEventsComponent } from './components/sound-events/sound-events.component';
 import { provideHttpClient } from '@angular/common/http';
+import { SoundEventComponent } from './components/sound-events/sound-event/sound-event.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CameraStreamComponent,
     HeaderComponent,
-    SoundEventsComponent
+    SoundEventsComponent,
+    SoundEventComponent
   ],
   imports: [
     BrowserModule,

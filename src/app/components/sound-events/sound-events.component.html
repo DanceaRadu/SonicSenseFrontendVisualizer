@@ -1,2 +1,9 @@
-<div *ngFor="let event of soundEvents">{{event.id}}</div>
-<div class="mb-10"></div>
+<div class="events-list">
+  <div class="events-title">Event log</div>
+  <app-sound-event
+    class="sound-event"
+    *ngFor="let event of soundEvents"
+    [soundEvent]="event"
+    (delete)="handleEventDelete(event.id)">
+  </app-sound-event>
+</div>

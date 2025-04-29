@@ -1,0 +1,7 @@
+<div class="event-outer-container">
+  <div>{{soundEvent.time | date: 'medium'}}</div>
+  <div>{{soundEvent.soundType}}</div>
+  <button mat-icon-button color="warn" (click)="delete.emit(soundEvent.id)">
+    <mat-icon>delete</mat-icon>
+  </button>
+</div>

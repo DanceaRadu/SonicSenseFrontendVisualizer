@@ -16,4 +16,13 @@ export class SnackBarService {
       panelClass: ['snackbar-error']
     });
   }
+
+  showSuccess(message: string, action: string = 'Close', duration: number = 4000): void {
+    this.snackBar.open(message, action, {
+      duration,
+      horizontalPosition: 'right',
+      verticalPosition: 'bottom',
+      panelClass: ['snackbar-success']
+    });
+  }
 }

@@ -8,6 +8,7 @@
   --darker-background-color: #131414;
 
   --font-fredoka: "Fredoka", sans-serif;
+  --text-color: #ddd;
 
   --text-sm: 1.1rem;
   --text-md: 1.5rem;
@@ -20,12 +21,18 @@
   --mdc-snackbar-supporting-text-color: #fff;
 }
 
+.mat-mdc-snack-bar-container.snackbar-success {
+  --mat-snack-bar-button-color: #fff;
+  --mdc-snackbar-container-color: var(--accent-surface-color);
+  --mdc-snackbar-supporting-text-color: #fff;
+}
 
 html, body {
   height: 100%;
   background-color: var(--background-color);
   font-size: 12px;
 }
+
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 @media (min-width: 768px) {

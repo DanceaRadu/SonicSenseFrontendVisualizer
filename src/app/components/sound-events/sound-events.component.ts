@@ -24,7 +24,9 @@ export class SoundEventsComponent implements OnInit {
   ngOnInit(): void {
     this.soundEventsService.getAllSoundEvents().subscribe({
       next: (events: SoundEvent[]) => {
-        this.soundEvents = events;
+        this.soundEvents = events.sort((a, b) => {
+          return new Date(b.time).getTime() - new Date(a.time).getTime();
+        });
       },
       error: () => {
         this.snackBar.showError("Failed to load sound events");
@@ -42,5 +44,17 @@ export class SoundEventsComponent implements OnInit {
     } else if (message.action === 'deleted') {
       this.soundEvents = this.soundEvents.filter(event => event.id !== message.id);
     }
+  }
+
+  handleEventDelete(id: string) {
+    this.soundEventsService.deleteSoundEventById(id).subscribe({
+      next: () => {
+        this.snackBar.showSuccess("Event deleted successfully");
+      },
+      error: () => {
+        this.snackBar.showError("Failed to delete event");
+      }
+    });
+    this.soundEvents = this.soundEvents.filter(event => event.id !== id);
   }
 }
