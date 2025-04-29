@@ -1,6 +1,6 @@
 <div class="event-outer-container">
   <div class="play-container">
-    <button mat-icon-button color="warn" class="mr-2" (click)="playVideo.emit(soundEvent.videoId)">
+    <button mat-icon-button color="warn" class="mr-2" (click)="handlePlayVideo()">
       <mat-icon>play_arrow</mat-icon>
     </button>
     <div class="text-center mt-1">{{soundEvent.time | date: 'medium'}}</div>
@@ -11,3 +11,10 @@
     <mat-icon>delete</mat-icon>
   </button>
 </div>
+
+<app-video-modal
+  *ngIf="videoUrl"
+  [videoUrl]="videoUrl"
+  [event]="soundEvent"
+  (close)="closeModal()">
+</app-video-modal>

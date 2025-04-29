@@ -18,10 +18,6 @@ export class SoundEventsComponent implements OnInit {
   soundEvents: SoundEvent[] = []
   isLoading: boolean = true;
 
-  videoUrl: string | null = null;
-  selectedEvent: SoundEvent | null = null;
-  isLoadingVideo: boolean = false;
-
   constructor(
     private websocketService: WebsocketService,
     private soundEventsService: SoundEventsService,
@@ -76,25 +72,5 @@ export class SoundEventsComponent implements OnInit {
         this.soundEvents = this.soundEvents.filter(event => event.id !== id);
       }
     });
-  }
-
-  handlePlayVideo(videoId: string) {
-    this.isLoadingVideo = true;
-    this.soundEventsService.getSoundEventVideo(videoId).subscribe( {
-      next: (video: Blob) => {
-        this.selectedEvent = this.soundEvents.find(event => event.videoId === videoId) || null;
-        this.videoUrl = URL.createObjectURL(video);
-        this.isLoadingVideo = false;
-      },
-      error: () => {
-        this.snackBar.showError("Failed to load video");
-        this.isLoadingVideo = false;
-      },
-    })
-  }
-
-  closeModal(): void {
-    this.videoUrl = null;
-    this.selectedEvent = null;
   }
 }
