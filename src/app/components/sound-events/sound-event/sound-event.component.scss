@@ -7,11 +7,19 @@
 
   background-color: var(--accent-surface-color);
   color: var(--text-color);
-  padding: 0.25rem 0.8rem 0.25rem 0.8rem;
+  padding: 0.25rem 0.8rem 0.25rem 0.25rem;
   margin-bottom: 0.7rem;
 
   border: 1px solid var(--separator-color);
   border-radius: 0.4rem;
 
   width: 100%;
+}
+
+.play-container {
+  display: flex;
+  height: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }

@@ -1,5 +1,11 @@
 <div class="event-outer-container">
-  <div>{{soundEvent.time | date: 'medium'}}</div>
+  <div class="play-container">
+    <button mat-icon-button color="warn" class="mr-2" (click)="playVideo.emit(soundEvent.videoId)">
+      <mat-icon>play_arrow</mat-icon>
+    </button>
+    <div class="text-center mt-1">{{soundEvent.time | date: 'medium'}}</div>
+  </div>
+
   <div>{{soundEvent.soundType}}</div>
   <button mat-icon-button color="warn" (click)="delete.emit(soundEvent.id)">
     <mat-icon>delete</mat-icon>

@@ -10,4 +10,5 @@ import { SoundEvent } from '../../../models/sound-event.model';
 export class SoundEventComponent {
   @Input({ required: true }) soundEvent!: SoundEvent
   @Output() delete = new EventEmitter<string>()
+  @Output() playVideo = new EventEmitter<string>()
 }
