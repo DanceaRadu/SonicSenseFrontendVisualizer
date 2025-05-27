@@ -1,1 +1,13 @@
-<div class="app-header">Sonic Sense</div>
+<div class="app-header">
+  <div class="left-placeholder"></div>
+  <div class="flex items-center">
+    <mat-icon
+      class="mic-icon">
+        <span class="material-symbols-outlined">
+          mic
+        </span>
+    </mat-icon>
+    <div class="header-title">Sonic Sense</div>
+  </div>
+  <app-connection-status [status]="isConnected"></app-connection-status>
+</div>

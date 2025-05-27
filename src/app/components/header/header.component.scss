@@ -3,11 +3,24 @@
 
 .app-header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
   padding: 1rem;
   background-color: var(--accent-surface-color);
+}
+
+.header-title {
   color: var(--accent-color);
   font-family: var(--font-fredoka), serif;
   font-size: var(--text-xlarge);
+}
+
+.mic-icon {
+  transform: scale(1.2);
+  color: var(--accent-color);
+  margin-right: 0.5rem;
+}
+
+.left-placeholder {
+  width: 8rem;
 }

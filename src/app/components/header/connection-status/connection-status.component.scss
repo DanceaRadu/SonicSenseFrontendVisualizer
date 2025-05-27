@@ -1,0 +1,13 @@
+.status {
+  font-family: var(--font-inter), serif;
+  width: 8rem;
+  text-align: end;
+}
+
+.status-connected {
+  color: var(--success-color);
+}
+
+.status-disconnected {
+  color: var(--error-color);
+}

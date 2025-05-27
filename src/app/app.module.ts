@@ -24,6 +24,7 @@ import { MatInput } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { ConnectionStatusComponent } from './components/header/connection-status/connection-status.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { MatInputModule } from '@angular/material/input';
     SoundEventComponent,
     ConfirmationDialogComponent,
     VideoModalComponent,
-    FooterComponent
+    FooterComponent,
+    ConnectionStatusComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { environment } from '../../environments/environment';
 import * as Stomp from 'stompjs';
 import SockJS from 'sockjs-client';
@@ -10,7 +10,8 @@ import SockJS from 'sockjs-client';
 export class WebsocketService {
   private stompClient: Stomp.Client | undefined;
   private socket: any;
-  private messageSubject: Subject<any> = new Subject<any>()
+  private messageSubject: Subject<any> = new Subject<any>();
+  private connectionStatusSubject: Subject<boolean> = new Subject<boolean>();
 
   constructor() {
     this.connect();
@@ -22,10 +23,12 @@ export class WebsocketService {
     this.stompClient.debug = () => {};
 
     this.stompClient.connect({}, () => {
+      this.connectionStatusSubject.next(true);
       this.stompClient!.subscribe('/topic/sound-events', (message: any) => {
         this.onMessageReceived(message);
       });
     }, (error: any) => {
+      this.connectionStatusSubject.next(false);
       console.error('Error connecting to WebSocket:', error);
     });
   }
@@ -39,9 +42,14 @@ export class WebsocketService {
     return this.messageSubject.asObservable();
   }
 
+  getConnectionStatus(): Observable<boolean> {
+    return this.connectionStatusSubject.asObservable();
+  }
+
   disconnect(): void {
     if (this.stompClient && this.stompClient.connected) {
       this.stompClient.disconnect(() => {
+        this.connectionStatusSubject.next(false);
         console.log('Disconnected from WebSocket');
       });
     }

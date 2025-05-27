@@ -12,7 +12,6 @@ export class CameraStreamComponent implements AfterViewInit {
   @ViewChild('remoteVideo') remoteVideoRef!: ElementRef<HTMLVideoElement>;
   peerConnection!: RTCPeerConnection;
   signalingSocket!: WebSocket;
-  showPlayButton = true;
 
   readonly SIGNALING_SERVER_URL = environment.signalingServerURL;
   readonly STUN_SERVERS = [
