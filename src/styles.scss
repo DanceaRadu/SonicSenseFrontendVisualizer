@@ -23,6 +23,10 @@
   background-color: var(--separator-color);
 }
 
+.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field.mat-mdc-form-field .mdc-notched-outline__notch {
+  border-right-style: hidden;
+}
+
 .small-text {
   font-size: var(--text-small)
 }
@@ -37,6 +41,10 @@
 
 .xlarge-text {
   font-size: var(--text-xlarge)
+}
+
+.text-wide-gap {
+  letter-spacing: 0.1em;
 }
 
 

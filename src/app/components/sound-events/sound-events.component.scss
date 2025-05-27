@@ -1,7 +1,7 @@
 .events-title {
   font-size: var(--text-large);
   color: var(--text-color);
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
 }
 
 .events-list {
@@ -25,9 +25,14 @@
 .filter-bar {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
+  gap: 0.4rem;
   align-items: center;
+  margin-bottom: 0;
+
+  @media (min-width: 960px) {
+    gap: 1rem;
+    margin-bottom: 0.3rem;
+  }
 }
 
 mat-form-field {
@@ -39,4 +44,6 @@ mat-form-field {
   font-size: var(--text-small);
   color: var(--separator-color);
   text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
