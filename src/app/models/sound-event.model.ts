@@ -3,4 +3,5 @@ export interface SoundEvent {
   videoId: string;
   time: Date;
   soundType: string;
+  score: number;
 }

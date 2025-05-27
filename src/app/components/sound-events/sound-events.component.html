@@ -1,17 +1,49 @@
 <div class="events-list">
   <div class="events-title">--- Event log ---</div>
 
+  <div class="filter-bar">
+    <mat-form-field appearance="outline">
+      <mat-label>Sound Type</mat-label>
+      <mat-select [(ngModel)]="selectedSoundType" (selectionChange)="onFilterChange()">
+        <mat-option value="All">All</mat-option>
+        <mat-option *ngFor="let type of getUniqueSoundTypes()" [value]="type">{{ type }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>From</mat-label>
+      <input matInput [matDatepicker]="fromPicker" [(ngModel)]="startDate" (dateChange)="onFilterChange()" />
+      <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+      <mat-datepicker #fromPicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>To</mat-label>
+      <input matInput [matDatepicker]="toPicker" [(ngModel)]="endDate" (dateChange)="onFilterChange()" />
+      <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+      <mat-datepicker #toPicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Sort By</mat-label>
+      <mat-select [(ngModel)]="sortDirection" (selectionChange)="onFilterChange()">
+        <mat-option value="desc">Newest First</mat-option>
+        <mat-option value="asc">Oldest First</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
   <div *ngIf="isLoading">
     <mat-spinner [diameter]="40" class="mb-4"></mat-spinner>
   </div>
 
-  <div *ngIf="!isLoading && soundEvents.length === 0" class="no-events-message">
+  <div *ngIf="!isLoading && filteredSoundEvents.length === 0" class="no-events-message">
     No events found.
   </div>
 
   <app-sound-event
     class="sound-event"
-    *ngFor="let event of soundEvents"
+    *ngFor="let event of filteredSoundEvents"
     [soundEvent]="event"
     (delete)="handleEventDelete(event.id)">
   </app-sound-event>

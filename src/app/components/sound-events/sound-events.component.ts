@@ -16,7 +16,14 @@ import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation
 export class SoundEventsComponent implements OnInit {
 
   soundEvents: SoundEvent[] = []
+  filteredSoundEvents: SoundEvent[] = [];
+
   isLoading: boolean = true;
+
+  selectedSoundType: string = 'All';
+  startDate: Date | null = null;
+  endDate: Date | null = null;
+  sortDirection: 'asc' | 'desc' = 'desc';
 
   constructor(
     private websocketService: WebsocketService,
@@ -28,9 +35,8 @@ export class SoundEventsComponent implements OnInit {
   ngOnInit(): void {
     this.soundEventsService.getAllSoundEvents().subscribe({
       next: (events: SoundEvent[]) => {
-        this.soundEvents = events.sort((a, b) => {
-          return new Date(b.time).getTime() - new Date(a.time).getTime();
-        });
+        this.soundEvents = events;
+        this.filteredSoundEvents = this.filterAndSortEvents(events);
         this.isLoading = false;
       },
       error: () => {
@@ -44,12 +50,39 @@ export class SoundEventsComponent implements OnInit {
     })
   }
 
+  private filterAndSortEvents(soundEvents: SoundEvent[]) {
+    return soundEvents
+      .filter(event => {
+        return this.selectedSoundType == 'All' || event.soundType == this.selectedSoundType;
+      })
+      .filter(event => {
+        const date = new Date(event.time);
+        return (!this.startDate || date >= new Date(this.startDate)) &&
+        (!this.endDate || date <= new Date(this.endDate));
+      })
+      .sort((a, b) => {
+        const d1 = new Date(a.time).getTime();
+        const d2 = new Date(b.time).getTime();
+        return this.sortDirection === 'asc' ? d1 - d2 : d2 - d1;
+      });
+  }
+
   private handleWebsocketMessage(message: WebsocketEvent) {
     if (message.action === 'created') {
       this.soundEvents.unshift(message.event!);
+      this.filteredSoundEvents = this.filterAndSortEvents(this.soundEvents);
     } else if (message.action === 'deleted') {
       this.soundEvents = this.soundEvents.filter(event => event.id !== message.id);
+      this.filteredSoundEvents = this.filteredSoundEvents.filter(event => event.id !== message.id);
     }
+  }
+
+  getUniqueSoundTypes(): string[] {
+    return Array.from(new Set(this.soundEvents.map(event => event.soundType)));
+  }
+
+  onFilterChange(): void {
+    this.filteredSoundEvents = this.filterAndSortEvents(this.soundEvents);
   }
 
   handleEventDelete(id: string) {

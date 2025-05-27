@@ -16,6 +16,12 @@ import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { VideoModalComponent } from './components/video-modal/video-modal.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FooterComponent } from './components/footer/footer.component';
+import { FormsModule } from "@angular/forms";
+import { MatFormField, MatLabel, MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
+import { MatDatepicker, MatDatepickerInput, MatDatepickerToggle } from '@angular/material/datepicker';
+import { MatInput } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -39,6 +45,16 @@ import { FooterComponent } from './components/footer/footer.component';
     MatDialogActions,
     MatProgressSpinner,
     BrowserAnimationsModule,
+    FormsModule,
+    MatSelect,
+    MatOption,
+    MatLabel,
+    MatFormField,
+    MatDatepickerInput,
+    MatInput,
+    MatDatepickerToggle,
+    MatDatepicker,
+    MatNativeDateModule,
   ],
   providers: [
     provideHttpClient()

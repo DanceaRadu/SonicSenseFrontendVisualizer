@@ -22,6 +22,19 @@
   }
 }
 
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  align-items: center;
+}
+
+mat-form-field {
+  min-width: 180px;
+  flex: 1;
+}
+
 .no-events-message {
   font-size: var(--text-small);
   color: var(--separator-color);
