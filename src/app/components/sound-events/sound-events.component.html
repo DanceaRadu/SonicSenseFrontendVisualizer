@@ -41,10 +41,11 @@
     No events found.
   </div>
 
-  <app-sound-event
-    class="sound-event"
-    *ngFor="let event of filteredSoundEvents"
-    [soundEvent]="event"
-    (delete)="handleEventDelete(event.id)">
-  </app-sound-event>
+  <div class="sound-event" [@listAnimation]="filteredSoundEvents.length">
+    <app-sound-event
+      *ngFor="let event of filteredSoundEvents"
+      [soundEvent]="event"
+      (delete)="handleEventDelete(event.id)">
+    </app-sound-event>
+  </div>
 </div>

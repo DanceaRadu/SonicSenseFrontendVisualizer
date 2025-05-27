@@ -6,12 +6,39 @@ import { SnackBarService } from '../../services/snack-bar.service';
 import { WebsocketEvent } from '../../models/websocket-event.model';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import {
+  trigger,
+  transition,
+  style,
+  animate,
+  query,
+  stagger
+} from '@angular/animations';
 
 @Component({
   selector: 'app-sound-events',
   standalone: false,
   templateUrl: './sound-events.component.html',
-  styleUrl: './sound-events.component.scss'
+  styleUrl: './sound-events.component.scss',
+  animations: [
+    trigger('listAnimation', [
+      transition('* => *', [
+        query(
+          ':enter',
+          [
+            style({ opacity: 0, transform: 'translateY(-10px)' }),
+            stagger(100, [
+              animate(
+                '300ms ease-out',
+                style({ opacity: 1, transform: 'translateY(0)' })
+              )
+            ])
+          ],
+          { optional: true }
+        )
+      ])
+    ])
+  ]
 })
 export class SoundEventsComponent implements OnInit {
 
@@ -70,11 +97,10 @@ export class SoundEventsComponent implements OnInit {
   private handleWebsocketMessage(message: WebsocketEvent) {
     if (message.action === 'created') {
       this.soundEvents.unshift(message.event!);
-      this.filteredSoundEvents = this.filterAndSortEvents(this.soundEvents);
     } else if (message.action === 'deleted') {
       this.soundEvents = this.soundEvents.filter(event => event.id !== message.id);
-      this.filteredSoundEvents = this.filteredSoundEvents.filter(event => event.id !== message.id);
     }
+    this.filteredSoundEvents = this.filterAndSortEvents(this.soundEvents);
   }
 
   getUniqueSoundTypes(): string[] {
@@ -103,6 +129,7 @@ export class SoundEventsComponent implements OnInit {
           }
         });
         this.soundEvents = this.soundEvents.filter(event => event.id !== id);
+        this.filteredSoundEvents = this.filterAndSortEvents(this.soundEvents);
       }
     });
   }
