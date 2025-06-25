@@ -1,6 +1,6 @@
-# SonicSenseFrontendVisualizer
+## Overview
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.7.
+This is an Angular 19 application that serves as the frontend for the Sonic Sense project. It provides a user interface that interacts with the backend, allowing users to visualize and manage sound events. The app can also be used to view the live feed from the camera using WebRTC.
 
 ## Development server
 
@@ -10,21 +10,7 @@ To start a local development server, run:
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
+Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever any of the source files are modified.
 
 ## Building
 
@@ -34,26 +20,8 @@ To build the project run:
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+This will compile the project and store the build artifacts in the `dist/` directory.
 
-## Running unit tests
+## Hosting
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+The website is hosted on a personal server. This app should (hopefully) still be accessible at [https://sonic-sense.gonemesis.org/](https://sonic-sense.gonemesis.org/).
